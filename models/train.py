@@ -8,6 +8,7 @@ import os
 import time
 
 tf.keras.backend.set_floatx('float64')
+
 input_tensor = tf.keras.layers.Input([100])
 output_tensors = Generator(input_tensor)
 model_generator = tf.keras.Model(input_tensor, output_tensors)
@@ -48,7 +49,6 @@ def train_step(images):
 		fake_output = model_discriminator(generated_images)
 		gen_loss = generator_loss(fake_output)
 		disc_loss = discriminator_loss(real_output, fake_output)
-
 	gradients_of_generator = gen_tape.gradient(gen_loss, model_generator.trainable_variables)
 	gradients_of_discriminator = disc_tape.gradient(disc_loss, model_discriminator.trainable_variables)
 
